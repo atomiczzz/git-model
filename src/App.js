@@ -10,12 +10,12 @@ class App extends Component {
 
     return (
       <div>
-        <div className='header'>GitHub</div>
         <Nav />
         <div className='leftContainer'>
-          <img className='avatar' src={pkg.avatar_url} />
-          <div className='userinfo'><strong>{pkg.name}</strong><br />{pkg.login}</div>
-          <div className='bio'>{pkg.bio}</div>
+          <img className='user' id='avatar' src={pkg.avatar_url} />
+          <div className='user' id='userinfo'><strong>{pkg.name}</strong></div>
+          <div className='user' id='userName'>{pkg.login}</div>
+          <div className='user' id='bio'>{pkg.bio}</div>
         </div>
       </div>
     )
@@ -28,10 +28,11 @@ class Nav extends Component {
       <div>
         <nav>
           <img src='.img/GitHub-Mark-Light-64px.png' />
-          <input placeholder='Search GitHub' />
-          <a href=''>Pull Requests</a>
-          <a href=''>Issues</a>
-          <a href=''>MarketPlace</a>
+          <input id='searchBar' placeholder='Search GitHub' />
+          <a href='' className='navLink'>Pull Requests</a>
+          <a href='' className='navLink'>Issues</a>
+          <a href='' className='navLink'>MarketPlace</a>
+          <a href='' className='navLink'>Gist</a>
         </nav>
       </div>
     )
