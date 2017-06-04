@@ -1,13 +1,37 @@
 import React, { Component } from 'react'
+import ReactDOM from 'react-dom'
 import logo from './logo.svg'
 import './App.css'
 import davidGit from './gitJson.json'
 import {token} from './gitToken.js'
 
 class App extends Component {
+  constructor () {
+    super()
+    this.state = {}
+  }
+  componentDidMount () {
+    let request = new XMLHttpRequest()
+    request.open('GET', 'https://api.github.com/?access_token=' + token, true)
+
+    request.onload = function () {
+      if (request.status >= 200 && request.status < 400) {
+        const data = JSON.parse(request.responseText)
+        // console.log(data)
+        ReactDOM.render(<App userData={data} />, document.getElementById('root'))
+      } else {
+        console.log('error')
+      }
+    }
+    request.onerror = function () {
+      console.log('There was a connection error of some sort')
+    }
+    request.send()
+  }
+
   render () {
     let pkg = this.props.userData
-
+    console.log(pkg)
     return (
       <div>
         <Nav />
@@ -24,6 +48,7 @@ class App extends Component {
 
 class Nav extends Component {
   render () {
+    console.log(this.props.userData)
     return (
       <div>
         <nav>
@@ -38,23 +63,5 @@ class Nav extends Component {
     )
   }
 }
-
-var request = new XMLHttpRequest()
-request.open('GET', 'https://api.github.com/?access_token=' + token, true)
-
-request.onload = function () {
-  if (request.status >= 200 && request.status < 400) {
-    // Success!
-    var data = JSON.parse(request.responseText)
-    console.log(data)
-  } else {
-    // We reached our target server, but it returned an error
-    console.log('error')
-  }
-}
-request.onerror = function () {
-  console.log('There was a connection error of some sort')
-}
-request.send()
 
 export default App
