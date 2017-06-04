@@ -8,7 +8,9 @@ import {token} from './gitToken.js'
 class App extends Component {
   constructor () {
     super()
-    this.state = {}
+    state = {
+      user: {}
+    }
   }
   componentDidMount () {
     let request = new XMLHttpRequest()
