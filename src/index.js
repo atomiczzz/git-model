@@ -6,8 +6,9 @@ import './index.css'
 import davidGit from './gitJson.json'
 import {token} from './gitToken'
 
-let userData = davidGit
-ReactDOM.render(<App userData={userData} />, document.getElementById('root'))
+let userData = {}
+let userRepo = {}
+ReactDOM.render(<App userData={userData} userRepo={userRepo} />, document.getElementById('root'))
 registerServiceWorker()
 
 // let request = new XMLHttpRequest()

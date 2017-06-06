@@ -27,6 +27,11 @@ nav {
   border: none;
   background-color: #3f4448;
 }
+.logo {
+  margin: -1px 15px -1px -2px;
+  width: 30px;
+  display: inline-block;
+}
 
 .leftContainer {
   padding-left: 20px;
