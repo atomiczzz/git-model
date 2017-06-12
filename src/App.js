@@ -5,46 +5,18 @@ import davidGit from './gitJson.json'
 import {token} from './gitToken.js'
 import logo from './GitHub-Mark-Light-64px.png'
 
-class App extends Component {
-
-  componentWillMount () {
-    let user = 'atomiczzz'
-    let api = 'https://api.github.com/users/'
-    let getHash = api + user
-    let getRepoHash = api + user + '/repos'
-    let request = new XMLHttpRequest()
-    request.open('GET', 'https://api.github.com/?access_token=' + token, true)
-    request.open('GET', getHash, true)
-    // request.open('GET', 'https://api.github.com/users/atomiczzz')
-    // request.open('GET', 'https://api.github.com/users/atomiczzz/repos')
-
-    request.onload = function () {
-      if (request.status >= 200 && request.status < 400) {
-        const data = JSON.parse(request.responseText)
-        ReactDOM.render(<App userData={data} />, document.getElementById('root'))
-      } else {
-        console.log('error')
-      }
-    }
-    request.onerror = function () {
-      console.log('There was a connection error of some sort')
-    }
-    request.send()
+function LoadingPage () {
+  return <h1>Fetching...</h1>
+}
+function App (appState) {
+  if (appState.isLoading) {
+    return <LoadingPage />
+  } else {
+    return <ProfilePage userData={appState.userData} />
   }
+}
 
-  // componentDidMount () {
-  //   let request = new XMLHttpRequest()
-  //   request.open('GET', 'https://api.github.com/?access_token=' + token, true)
-  //   request.open('GET', 'https://api.github.com/users/atomiczzz/repos')
-  //
-  //   request.onload = function () {
-  //     if (request.status >= 200 && request.status < 400) {
-  //       const data = JSON.parse(request.responseText)
-  //       ReactDOM.render(<)
-  //     }
-  //   }
-  // }
-
+class ProfilePage extends Component {
   render () {
     let pkg = this.props.userData
     return (
@@ -64,11 +36,17 @@ class App extends Component {
 
 class Nav extends Component {
   render () {
+    // function handleClick (input) {
+    //   if (input.charCode === 13) {
+    //     mainState.searchValue = input.target.value
+    //     console.log(input.target.value)
+    //   }
+    // }
     return (
       <div>
         <nav>
           <img src={logo} className='logo' alt='#' />
-          <input id='searchBar' placeholder='Search GitHub' />
+          <input id='searchBar' type='text' placeholder='Search GitHub' value='' />
           <a href='' className='navLink'>Pull Requests</a>
           <a href='' className='navLink'>Issues</a>
           <a href='' className='navLink'>MarketPlace</a>
